@@ -1,4 +1,11 @@
 import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
+
+const WHATSAPP_URL =
+  "https://wa.me/526761123869?text=Hola%2C%20quiero%20cotizar%20un%20proyecto%20con%20KMS."
+const EMAIL = "contacto@grupokms.com"
+const MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=Monterrey%2C%20Nuevo%20Le%C3%B3n%2C%20M%C3%A9xico"
 
 const footerLinks = [
   { label: "Servicios", href: "#servicios" },
@@ -9,13 +16,8 @@ const footerLinks = [
 ]
 
 const contactLinks = [
-  {
-    label: "WhatsApp",
-    href: "https://wa.me/526761123869?text=Hola%2C%20quiero%20cotizar%20un%20proyecto%20con%20KMS.",
-    external: true,
-  },
+  { label: "WhatsApp", href: WHATSAPP_URL, external: true },
   { label: "LinkedIn", href: "#", external: false },
-  { label: "Correo", href: "#", external: false },
 ]
 
 export function Footer() {
@@ -50,7 +52,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="md:col-span-3 md:col-start-7">
+        <div className="md:col-span-2 md:col-start-7">
           <p className="text-[11px] tracking-[0.3em] uppercase text-muted-foreground/55 mb-6">
             Navegación
           </p>
@@ -68,33 +70,49 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="md:col-span-3 md:col-start-10">
+        <div className="md:col-span-4 md:col-start-9">
           <p className="text-[11px] tracking-[0.3em] uppercase text-muted-foreground/55 mb-6">
             Contacto
           </p>
           <div className="flex flex-col gap-3">
-            {contactLinks.map((link) =>
-              link.external ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-foreground/75 hover:text-foreground transition-colors duration-300"
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm text-foreground/75 hover:text-foreground transition-colors duration-300"
-                >
-                  {link.label}
-                </a>
-              )
-            )}
-            <p className="text-sm text-foreground/75 mt-2 tabular-nums">+52 676 112 3869</p>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="text-sm text-foreground hover:text-foreground/70 transition-colors duration-300 break-all"
+            >
+              {EMAIL}
+            </a>
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-start gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              <span>Monterrey, Nuevo León, México</span>
+              <ArrowUpRight className="h-3 w-3 mt-1 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 mt-3 pt-4 border-t border-border">
+              {contactLinks.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -22,17 +22,13 @@ const areas: Area[] = [
     description:
       "Fabricación, instalación, mantenimiento y adecuación de sistemas HVAC y ductería para espacios industriales y comerciales.",
     images: [
-      "/kms/areas/hvac/01.jpg",
       "/kms/areas/hvac/02.jpg",
-      "/kms/areas/hvac/03.jpg",
-      "/kms/areas/hvac/04.jpg",
-      "/kms/areas/hvac/05.jpg",
-      "/kms/areas/hvac/06.jpg",
-      "/kms/areas/hvac/07.jpg",
       "/kms/areas/hvac/08.jpg",
       "/kms/areas/hvac/09.jpg",
-      "/kms/areas/hvac/10.jpg",
-      "/kms/areas/hvac/11.jpg",
+      "/kms/areas/hvac/01.jpg",
+      "/kms/areas/hvac/06.jpg",
+      "/kms/areas/hvac/07.jpg",
+      "/kms/areas/hvac/03.jpg",
     ],
   },
   {
@@ -46,6 +42,10 @@ const areas: Area[] = [
       "/kms/areas/aislamiento/02.jpg",
       "/kms/areas/aislamiento/03.jpg",
       "/kms/areas/aislamiento/04.jpg",
+      "/kms/areas/aislamiento/05.jpg",
+      "/kms/areas/aislamiento/06.jpg",
+      "/kms/areas/aislamiento/07.jpg",
+      "/kms/areas/aislamiento/08.jpg",
     ],
   },
   {
@@ -55,7 +55,13 @@ const areas: Area[] = [
     description:
       "Corte láser, plasma, oxicorte y mecanizado CNC, además de desarrollo, fabricación y mantenimiento de maquinaria CNC para procesos industriales.",
     images: [
-      "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=1200&q=80",
+      "/kms/areas/cnc/01.jpg",
+      "/kms/areas/cnc/02.jpg",
+      "/kms/areas/cnc/03.jpg",
+      "/kms/areas/cnc/04.jpg",
+      "/kms/areas/cnc/05.jpg",
+      "/kms/areas/cnc/06.jpg",
+      "/kms/areas/cnc/07.jpg",
     ],
   },
   {
@@ -64,7 +70,16 @@ const areas: Area[] = [
     tags: ["Estructuras", "Soldadura", "Montajes"],
     description:
       "Fabricación de estructuras, soportes, bases, piezas especiales y montajes industriales diseñados para operar con seguridad y precisión.",
-    images: ["/kms/areas/fabricacion-estructuras.jpg"],
+    images: [
+      "/kms/areas/estructuras/01.jpg",
+      "/kms/areas/estructuras/02.jpg",
+      "/kms/areas/estructuras/03.jpg",
+      "/kms/areas/estructuras/04.jpg",
+      "/kms/areas/estructuras/05.jpg",
+      "/kms/areas/estructuras/06.jpg",
+      "/kms/areas/estructuras/07.jpg",
+      "/kms/areas/estructuras/08.jpg",
+    ],
   },
 ]
 
@@ -89,7 +104,6 @@ function AreaCard({ area, index }: { area: Area; index: number }) {
           hoverZoomSingle
         />
 
-        {/* Subtle hover tint (only when single image, so it doesn't fight carousel UI) */}
         {area.images.length <= 1 && (
           <div
             aria-hidden

@@ -19,20 +19,30 @@ export function StudioSection() {
       id="nosotros"
       className="relative px-6 py-24 md:px-12 lg:px-20 md:py-36 bg-foreground text-background overflow-hidden"
     >
-      {/* Subtle brand accent */}
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 z-0" aria-hidden>
+        <img
+          src="/kms/areas/hvac/06.jpg"
+          alt=""
+          className="w-full h-full object-cover object-center opacity-[0.08]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground/50 via-transparent to-foreground/30" />
+      </div>
+
+      {/* Top brand accent */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--brand))]/50 to-transparent"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--brand))]/50 to-transparent z-10"
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
         <div
           ref={headRef}
           className={`lg:col-span-5 transition-all duration-1000 ${
             headVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <p className="text-[11px] tracking-[0.3em] uppercase text-background/40 mb-6">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-background/45 mb-6">
             <span className="inline-block h-px w-8 align-middle bg-background/30 mr-3" />
             Sobre KMS
           </p>
@@ -48,17 +58,17 @@ export function StudioSection() {
           }`}
         >
           <div className="flex flex-col gap-6 max-w-[58ch]">
-            <p className="text-[15px] md:text-base leading-[1.75] text-background/75">
+            <p className="text-[15px] md:text-base leading-[1.75] text-background/80">
               KMS es una empresa industrial con 8 años de experiencia técnica, enfocada en
               proyectos donde la fabricación, la instalación y el mantenimiento requieren
               orden, precisión y respuesta en campo.
             </p>
-            <p className="text-[15px] md:text-base leading-[1.75] text-background/70">
+            <p className="text-[15px] md:text-base leading-[1.75] text-background/75">
               Integramos servicios de HVAC, ductería, aislamiento, TPO, recubrimientos,
               estructuras metálicas, montajes y soluciones CNC para atender necesidades
               industriales y comerciales en México.
             </p>
-            <p className="text-[15px] md:text-base leading-[1.75] text-background/70">
+            <p className="text-[15px] md:text-base leading-[1.75] text-background/75">
               Nuestra capacidad CNC va más allá del corte. Desarrollamos maquinaria,
               fabricamos soluciones a medida y damos mantenimiento a equipos existentes
               para mejorar procesos de producción.
@@ -69,7 +79,7 @@ export function StudioSection() {
 
       <div
         ref={statsRef}
-        className={`mt-16 md:mt-24 pt-10 md:pt-12 border-t border-background/15 transition-all duration-1000 delay-300 ${
+        className={`relative z-10 mt-16 md:mt-24 pt-10 md:pt-12 border-t border-background/15 transition-all duration-1000 delay-300 ${
           statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -77,19 +87,17 @@ export function StudioSection() {
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className={`relative ${i > 0 ? "lg:pl-10 lg:border-l lg:border-background/10" : ""} ${
-                i === 2 ? "md:border-t-0" : ""
-              }`}
+              className={`relative ${i > 0 ? "lg:pl-10 lg:border-l lg:border-background/10" : ""}`}
             >
               <p className="flex items-baseline gap-1 text-[clamp(2rem,4.5vw,3.25rem)] font-extralight text-background tracking-tight leading-none">
                 <span>{stat.value}</span>
                 {stat.suffix && (
-                  <span className="text-base md:text-lg text-background/55 font-light">
+                  <span className="text-base md:text-lg text-background/60 font-light">
                     {stat.suffix}
                   </span>
                 )}
               </p>
-              <p className="text-[10px] md:text-[11px] tracking-[0.14em] uppercase text-background/45 mt-4 leading-snug max-w-[20ch]">
+              <p className="text-[10px] md:text-[11px] tracking-[0.14em] uppercase text-background/55 mt-4 leading-snug max-w-[20ch]">
                 {stat.label}
               </p>
             </div>
