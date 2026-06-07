@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { motion } from "motion/react"
 import { ArrowUpRight } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { SectionHeader } from "@/components/section-header"
@@ -32,26 +33,30 @@ const areas: Area[] = [
     ],
   },
   {
-    title: "Aislamiento, laminación y TPO",
-    category: "Protección térmica / Sellado / Recubrimientos",
-    tags: ["Aislamiento", "TPO", "Laminación"],
+    title: "Aislamiento, TPO y policarbonatos",
+    category: "Protección térmica / Cubiertas / Envolventes",
+    tags: ["TPO", "Aislamiento", "Policarbonatos", "Domos"],
     description:
-      "Aislamiento térmico, laminación, TPO y protección de superficies para mejorar eficiencia, durabilidad y desempeño en campo.",
+      "Aislamiento térmico, laminación, aplicación de TPO, instalación y reemplazo de policarbonatos, domos y cubiertas traslúcidas industriales.",
     images: [
+      "/kms/aislamiento/panorama-monterrey.jpg",
+      "/kms/aislamiento/rooftop-piping.jpg",
+      "/kms/policarbonatos/01.jpg",
+      "/kms/aislamiento/piping-valves.jpg",
       "/kms/areas/aislamiento/01.jpg",
-      "/kms/areas/aislamiento/02.jpg",
+      "/kms/aislamiento/piping-elbows.jpg",
+      "/kms/policarbonatos/02.jpg",
+      "/kms/aislamiento/piping-chiller.jpg",
+      "/kms/aislamiento/large-tank.jpg",
       "/kms/areas/aislamiento/03.jpg",
-      "/kms/areas/aislamiento/04.jpg",
-      "/kms/areas/aislamiento/05.jpg",
-      "/kms/areas/aislamiento/06.jpg",
-      "/kms/areas/aislamiento/07.jpg",
-      "/kms/areas/aislamiento/08.jpg",
+      "/kms/aislamiento/blue-wrap-process.jpg",
+      "/kms/aislamiento/spiral-ducting.jpg",
     ],
   },
   {
-    title: "Corte, mecanizado y maquinaria CNC",
-    category: "Láser / Plasma / Oxicorte / Mecanizado CNC",
-    tags: ["Láser", "Plasma", "Oxicorte", "Mecanizado"],
+    title: "CNC industrial y maquinaria CNC",
+    category: "Corte / Mecanizado / Desarrollo de equipos",
+    tags: ["Láser", "Plasma", "Mecanizado", "Maquinaria"],
     description:
       "Corte láser, plasma, oxicorte y mecanizado CNC, además de desarrollo, fabricación y mantenimiento de maquinaria CNC para procesos industriales.",
     images: [
@@ -65,8 +70,21 @@ const areas: Area[] = [
     ],
   },
   {
-    title: "Fabricación y estructuras metálicas",
-    category: "Montajes / Soldadura / Estructuras",
+    title: "PLCs y automatización industrial",
+    category: "Control / Tableros / Variadores / Integración",
+    tags: ["PLCs", "Tableros", "Variadores", "Diagnóstico"],
+    description:
+      "Integración, diagnóstico, programación y soporte para sistemas de control, PLCs, tableros, variadores y procesos automatizados.",
+    images: [
+      "/kms/automation/01.jpg",
+      "/kms/automation/02.jpg",
+      "/kms/automation/03.jpg",
+      "/kms/automation/04.jpg",
+    ],
+  },
+  {
+    title: "Fabricación, montajes y estructuras metálicas",
+    category: "Estructuras / Soldadura / Montajes en campo",
     tags: ["Estructuras", "Soldadura", "Montajes"],
     description:
       "Fabricación de estructuras, soportes, bases, piezas especiales y montajes industriales diseñados para operar con seguridad y precisión.",
@@ -81,6 +99,20 @@ const areas: Area[] = [
       "/kms/areas/estructuras/08.jpg",
     ],
   },
+  {
+    title: "Recubrimientos industriales",
+    category: "Protección / Sellado / Acabados",
+    tags: ["Recubrimientos", "Sellado", "Acabados"],
+    description:
+      "Recubrimientos protectores, sellado de penetraciones y acabados industriales para mejorar durabilidad de superficies, componentes y estructuras.",
+    images: [
+      "/kms/areas/aislamiento/07.jpg",
+      "/kms/areas/aislamiento/04.jpg",
+      "/kms/areas/aislamiento/06.jpg",
+      "/kms/areas/estructuras/07.jpg",
+      "/kms/areas/aislamiento/05.jpg",
+    ],
+  },
 ]
 
 function AreaCard({ area, index }: { area: Area; index: number }) {
@@ -88,14 +120,16 @@ function AreaCard({ area, index }: { area: Area; index: number }) {
   const { ref, isVisible } = useScrollReveal(0.1)
 
   return (
-    <div
+    <motion.div
       ref={ref}
       className={`relative bg-background group transition-all duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
-      style={{ transitionDelay: `${(index % 2) * 150}ms` }}
+      style={{ transitionDelay: `${(index % 3) * 120}ms` }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
     >
       <div className="relative">
         <CardCarousel
@@ -111,7 +145,6 @@ function AreaCard({ area, index }: { area: Area; index: number }) {
           />
         )}
 
-        {/* Number badge */}
         <span className="absolute top-5 left-5 z-20 inline-flex items-center gap-2 bg-background/90 backdrop-blur-sm text-foreground text-[10px] tracking-[0.18em] uppercase px-2.5 py-1.5 font-medium">
           <span className="tabular-nums text-muted-foreground/70">
             {String(index + 1).padStart(2, "0")}
@@ -129,9 +162,9 @@ function AreaCard({ area, index }: { area: Area; index: number }) {
         </span>
       </div>
 
-      <div className="p-6 md:p-8 lg:p-10">
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <h3 className="text-lg md:text-xl lg:text-[1.4rem] font-light tracking-tight text-foreground text-balance leading-snug">
+      <div className="p-6 md:p-7 lg:p-8">
+        <div className="flex items-start justify-between gap-4 mb-3">
+          <h3 className="text-lg md:text-xl font-light tracking-tight text-foreground text-balance leading-snug">
             {area.title}
           </h3>
           <ArrowUpRight
@@ -141,11 +174,11 @@ function AreaCard({ area, index }: { area: Area; index: number }) {
           />
         </div>
 
-        <p className="text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-muted-foreground/80 mb-5">
+        <p className="text-[10px] md:text-[11px] tracking-[0.18em] uppercase text-muted-foreground/80 mb-4">
           {area.category}
         </p>
 
-        <p className="text-sm leading-[1.7] text-muted-foreground/90 max-w-md text-pretty mb-6">
+        <p className="text-sm leading-[1.65] text-muted-foreground/90 text-pretty mb-5">
           {area.description}
         </p>
 
@@ -160,7 +193,7 @@ function AreaCard({ area, index }: { area: Area; index: number }) {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -182,7 +215,7 @@ export function ProjectsSection() {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
         {areas.map((area, index) => (
           <AreaCard key={area.title} area={area} index={index} />
         ))}

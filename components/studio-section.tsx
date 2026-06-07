@@ -1,11 +1,20 @@
 "use client"
 
+import { motion } from "motion/react"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
+import { CountUp } from "@/components/count-up"
 
-const stats = [
-  { value: "8", suffix: "años", label: "De experiencia técnica" },
+type Stat = {
+  value: string
+  suffix: string
+  label: string
+  countTo?: number
+}
+
+const stats: Stat[] = [
+  { value: "8", suffix: "años", label: "De experiencia técnica", countTo: 8 },
   { value: "MX", suffix: "", label: "Atención en todo el país" },
-  { value: "10", suffix: "+", label: "Especialidades técnicas" },
+  { value: "10", suffix: "+", label: "Especialidades técnicas", countTo: 10 },
   { value: "CNC", suffix: "", label: "Corte, desarrollo y mantenimiento" },
 ]
 
@@ -19,7 +28,6 @@ export function StudioSection() {
       id="nosotros"
       className="relative px-6 py-24 md:px-12 lg:px-20 md:py-36 bg-foreground text-background overflow-hidden"
     >
-      {/* Subtle background texture */}
       <div className="absolute inset-0 z-0" aria-hidden>
         <img
           src="/kms/areas/hvac/06.jpg"
@@ -29,7 +37,6 @@ export function StudioSection() {
         <div className="absolute inset-0 bg-gradient-to-br from-foreground/50 via-transparent to-foreground/30" />
       </div>
 
-      {/* Top brand accent */}
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[hsl(var(--brand))]/50 to-transparent z-10"
@@ -77,20 +84,32 @@ export function StudioSection() {
         </div>
       </div>
 
-      <div
+      <motion.div
         ref={statsRef}
-        className={`relative z-10 mt-16 md:mt-24 pt-10 md:pt-12 border-t border-background/15 transition-all duration-1000 delay-300 ${
-          statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
+        initial={false}
+        animate={statsVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        transition={{ duration: 0.9, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+        className="relative z-10 mt-16 md:mt-24 pt-10 md:pt-12 border-t border-background/15"
       >
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 md:gap-x-10">
           {stats.map((stat, i) => (
-            <div
+            <motion.div
               key={stat.label}
+              initial={{ opacity: 0, y: 18 }}
+              animate={statsVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{
+                duration: 0.7,
+                delay: 0.3 + i * 0.12,
+                ease: [0.4, 0, 0.2, 1],
+              }}
               className={`relative ${i > 0 ? "lg:pl-10 lg:border-l lg:border-background/10" : ""}`}
             >
               <p className="flex items-baseline gap-1 text-[clamp(2rem,4.5vw,3.25rem)] font-extralight text-background tracking-tight leading-none">
-                <span>{stat.value}</span>
+                {stat.countTo !== undefined ? (
+                  <CountUp to={stat.countTo} duration={1.8} />
+                ) : (
+                  <span>{stat.value}</span>
+                )}
                 {stat.suffix && (
                   <span className="text-base md:text-lg text-background/60 font-light">
                     {stat.suffix}
@@ -100,10 +119,10 @@ export function StudioSection() {
               <p className="text-[10px] md:text-[11px] tracking-[0.14em] uppercase text-background/55 mt-4 leading-snug max-w-[20ch]">
                 {stat.label}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -95,7 +95,7 @@ export function CardCarousel({
           alt={`${alt}${images.length > 1 ? ` (${i + 1}/${images.length})` : ""}`}
           aria-hidden={i !== active}
           loading={i === 0 ? "eager" : "lazy"}
-          className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1200ms] ease-out ${
+          className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out ${
             i === active ? "opacity-100" : "opacity-0"
           } ${hoverZoomSingle && isSingle ? "group-hover:scale-[1.06]" : ""}`}
         />

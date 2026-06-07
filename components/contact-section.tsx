@@ -23,7 +23,7 @@ const blocks = [
   {
     label: "Correo",
     title: EMAIL,
-    body: "Para cotizaciones formales y documentación técnica.",
+    body: "Cotizaciones formales, documentación técnica y proyectos industriales.",
     href: `mailto:${EMAIL}`,
     external: false,
     linkText: "Escribir correo",
@@ -67,8 +67,9 @@ export function ContactSection() {
             Hablemos de tu próximo proyecto
           </h2>
           <p className="text-[15px] md:text-base leading-[1.75] text-background/75 mt-8 max-w-xl text-pretty">
-            Cuéntanos qué necesitas fabricar, instalar, mantener o desarrollar. En KMS
-            te ayudamos a definir el alcance técnico y aterrizar una solución viable.
+            Cuéntanos qué necesitas fabricar, instalar, mantener, automatizar o
+            desarrollar. En KMS te ayudamos a definir el alcance técnico y aterrizar
+            una solución viable.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">

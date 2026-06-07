@@ -37,11 +37,24 @@ export function Footer() {
             </span>
           </Link>
           <p className="text-sm leading-[1.75] text-muted-foreground mt-7 max-w-sm text-pretty">
-            Fabricación, instalación, mantenimiento y soluciones industriales en HVAC,
-            ductería, aislamiento, TPO, CNC, recubrimientos, estructuras y montajes.
+            Soluciones industriales integrales en HVAC, ductería, aislamiento, TPO,
+            policarbonatos, recubrimientos, CNC, maquinaria CNC, PLCs y automatización,
+            fabricación, estructuras y montajes en planta, obra y mantenimiento.
           </p>
           <div className="mt-6 flex flex-wrap gap-1.5">
-            {["HVAC", "Ductería", "CNC", "TPO", "Estructuras", "Montajes"].map((tag) => (
+            {[
+              "HVAC",
+              "Ductería",
+              "TPO",
+              "Policarbonatos",
+              "Recubrimientos",
+              "CNC",
+              "Maquinaria CNC",
+              "PLCs",
+              "Automatización",
+              "Estructuras",
+              "Montajes",
+            ].map((tag) => (
               <span
                 key={tag}
                 className="inline-flex items-center text-[10px] tracking-[0.12em] uppercase text-muted-foreground border border-border px-2 py-1"

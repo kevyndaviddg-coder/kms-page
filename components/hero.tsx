@@ -15,11 +15,11 @@ const HERO_IMAGES = [
   "/kms/hero/04.jpg",
 ]
 
-const trustItems = [
-  { value: "8", label: "Años de experiencia" },
-  { value: "MX", label: "Atención nacional" },
-  { value: "HVAC", label: "Ductería e instalación" },
-  { value: "CNC", label: "Corte y desarrollo" },
+const stats = [
+  { value: "8", suffix: "años", label: "Experiencia técnica" },
+  { value: "MX", suffix: "", label: "Atención nacional" },
+  { value: "10", suffix: "+", label: "Servicios principales" },
+  { value: "06", suffix: "", label: "Áreas de trabajo" },
 ]
 
 const EASE = [0.4, 0, 0.2, 1] as const
@@ -42,7 +42,7 @@ export function Hero() {
       <HeroBackgroundSlider images={HERO_IMAGES} />
 
       {/* Content */}
-      <div className="relative z-10 px-6 pb-12 pt-32 md:px-12 lg:px-20 md:pb-16 md:pt-36">
+      <div className="relative z-10 px-6 pb-10 pt-32 md:px-12 lg:px-20 md:pb-14 md:pt-36">
         <div className="max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -71,11 +71,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={visible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.9, ease: EASE }}
-            className="mt-8 md:mt-10 max-w-2xl text-sm md:text-base leading-[1.7] text-background/80 text-pretty"
+            className="mt-8 md:mt-10 max-w-3xl text-sm md:text-base leading-[1.7] text-background/80 text-pretty"
           >
-            KMS integra HVAC, ductería, aislamiento, TPO, recubrimientos, fabricación
-            metálica, montajes y soluciones CNC para proyectos industriales, comerciales
-            y de mantenimiento especializado.
+            Integramos HVAC, ductería, aislamiento, TPO, policarbonatos, recubrimientos,
+            CNC, maquinaria CNC, PLCs, automatización, fabricación, estructuras y
+            montajes industriales para proyectos en planta, obra y mantenimiento.
           </motion.p>
 
           <motion.div
@@ -108,22 +108,27 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Trust strip */}
+      {/* Trust strip — clean stats only */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={visible ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, delay: 1.3, ease: EASE }}
-        className="relative z-10 border-t border-background/15 backdrop-blur-sm bg-foreground/30"
+        className="relative z-10 border-t border-background/15 backdrop-blur-sm bg-foreground/35"
       >
         <div className="px-6 md:px-12 lg:px-20 py-5 md:py-6">
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 md:gap-x-10">
-            {trustItems.map((item) => (
-              <li key={item.label} className="flex flex-col gap-1.5 min-w-0">
-                <span className="text-base md:text-lg font-light text-background tracking-tight tabular-nums leading-none">
-                  {item.value}
+            {stats.map((stat) => (
+              <li key={stat.label} className="flex flex-col gap-1.5 min-w-0">
+                <span className="flex items-baseline gap-1 text-base md:text-lg font-light text-background tracking-tight tabular-nums leading-none">
+                  <span>{stat.value}</span>
+                  {stat.suffix && (
+                    <span className="text-[11px] text-background/65 font-light">
+                      {stat.suffix}
+                    </span>
+                  )}
                 </span>
                 <span className="text-[10px] md:text-[11px] tracking-[0.12em] uppercase text-background/60 leading-snug">
-                  {item.label}
+                  {stat.label}
                 </span>
               </li>
             ))}

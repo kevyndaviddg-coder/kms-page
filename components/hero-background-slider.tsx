@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 
 type HeroBackgroundSliderProps = {
   images: string[]
@@ -14,6 +14,7 @@ export function HeroBackgroundSlider({
 }: HeroBackgroundSliderProps) {
   const [index, setIndex] = useState(0)
   const [ready, setReady] = useState(false)
+  const reduce = useReducedMotion()
 
   // Preload all images so transitions never flash
   useEffect(() => {
@@ -61,17 +62,18 @@ export function HeroBackgroundSlider({
             src={current}
             alt=""
             className="w-full h-full object-cover object-center will-change-transform"
-            initial={{ scale: 1.08 }}
-            animate={{ scale: 1.18 }}
-            transition={{ duration: 8.5, ease: "linear" }}
+            style={{ filter: "brightness(1.08) contrast(1.04)" }}
+            initial={{ scale: reduce ? 1.0 : 1.08 }}
+            animate={{ scale: reduce ? 1.0 : 1.18 }}
+            transition={{ duration: reduce ? 0 : 8.5, ease: "linear" }}
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Overlays */}
-      <div className="absolute inset-0 bg-foreground/55" />
-      <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/35 to-foreground/30" />
-      <div className="absolute inset-0 bg-gradient-to-br from-foreground/40 via-transparent to-transparent" />
+      {/* Softer overlays — image is now the protagonist */}
+      <div className="absolute inset-0 bg-foreground/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/15 to-foreground/10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/45 via-transparent to-transparent" />
 
       {/* Progress indicators */}
       {images.length > 1 && (
@@ -83,7 +85,7 @@ export function HeroBackgroundSlider({
               className="h-[2px] bg-background"
               animate={{
                 width: i === index ? 40 : 14,
-                opacity: i === index ? 0.95 : 0.3,
+                opacity: i === index ? 1 : 0.4,
               }}
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             />

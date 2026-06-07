@@ -1,7 +1,8 @@
 "use client"
 
-import { motion } from "motion/react"
-import { useScrollReveal } from "@/hooks/use-scroll-reveal"
+import { motion, useInView } from "motion/react"
+import { ArrowUpRight } from "lucide-react"
+import { useRef } from "react"
 import { SectionHeader } from "@/components/section-header"
 
 const WHATSAPP_URL =
@@ -12,6 +13,7 @@ type Service = {
   title: string
   description: string
   image: string
+  tag: string
 }
 
 const services: Service[] = [
@@ -21,6 +23,7 @@ const services: Service[] = [
     description:
       "Instalación, mantenimiento y adecuación de sistemas HVAC para espacios industriales y comerciales.",
     image: "/kms/areas/hvac/02.jpg",
+    tag: "HVAC",
   },
   {
     number: "02",
@@ -28,39 +31,77 @@ const services: Service[] = [
     description:
       "Fabricación e instalación de ductos, lámina, accesorios, soportes y soluciones a medida.",
     image: "/kms/areas/hvac/06.jpg",
+    tag: "Ductería",
   },
   {
     number: "03",
     title: "Aislamiento y TPO",
     description:
       "Aislamiento térmico, laminación, aplicación de TPO y protección de superficies expuestas.",
-    image: "/kms/areas/aislamiento/01.jpg",
+    image: "/kms/aislamiento/panorama-monterrey.jpg",
+    tag: "TPO",
   },
   {
     number: "04",
-    title: "CNC industrial",
+    title: "Policarbonatos y cubiertas traslúcidas",
     description:
-      "Corte láser, plasma, oxicorte, mecanizado CNC, desarrollo de maquinaria CNC y mantenimiento de equipos industriales.",
-    image: "/kms/areas/cnc/02.jpg",
+      "Instalación, reemplazo y mantenimiento de policarbonatos, domos, tragaluces y cerramientos ligeros.",
+    image: "/kms/policarbonatos/01.jpg",
+    tag: "Cubiertas",
   },
   {
     number: "05",
+    title: "CNC industrial",
+    description:
+      "Corte láser, plasma, oxicorte y mecanizado CNC para procesos industriales de alta precisión.",
+    image: "/kms/areas/cnc/02.jpg",
+    tag: "CNC",
+  },
+  {
+    number: "06",
+    title: "Maquinaria CNC",
+    description:
+      "Desarrollo, fabricación y mantenimiento de maquinaria CNC a medida para procesos industriales.",
+    image: "/kms/areas/cnc/04.jpg",
+    tag: "Maquinaria",
+  },
+  {
+    number: "07",
+    title: "PLCs y automatización industrial",
+    description:
+      "Integración, diagnóstico y soporte para sistemas de control, PLCs, tableros, variadores y procesos automatizados.",
+    image: "/kms/automation/01.jpg",
+    tag: "Control",
+  },
+  {
+    number: "08",
     title: "Recubrimientos industriales",
     description:
       "Protección, acabado y mayor durabilidad para superficies, componentes y estructuras.",
     image: "/kms/areas/aislamiento/07.jpg",
+    tag: "Recubrimientos",
   },
   {
-    number: "06",
+    number: "09",
     title: "Montajes y fabricación",
     description:
-      "Estructuras metálicas, bases, soportes, piezas especiales, herrería industrial y montajes en campo.",
+      "Bases, soportes, piezas especiales, herrería industrial y montajes coordinados en campo.",
+    image: "/kms/areas/estructuras/04.jpg",
+    tag: "Montajes",
+  },
+  {
+    number: "10",
+    title: "Estructuras metálicas",
+    description:
+      "Fabricación de estructuras, soportes y elementos metálicos diseñados para operación industrial.",
     image: "/kms/areas/estructuras/01.jpg",
+    tag: "Estructuras",
   },
 ]
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
-  const { ref, isVisible } = useScrollReveal(0.12)
+  const ref = useRef<HTMLAnchorElement>(null)
+  const inView = useInView(ref, { amount: 0.15, once: true })
 
   return (
     <motion.a
@@ -69,123 +110,129 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Cotizar ${service.title} por WhatsApp`}
-      initial={false}
-      animate={
-        isVisible
-          ? { opacity: 1, y: 0 }
-          : { opacity: 0, y: 32 }
-      }
+      initial={{ opacity: 0, y: 36 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 0.7,
-        delay: (index % 3) * 0.1,
+        duration: 0.8,
+        delay: (index % 5) * 0.07,
         ease: [0.4, 0, 0.2, 1],
       }}
       whileHover="hover"
-      className="relative group flex flex-col bg-background overflow-hidden"
+      className="relative group block bg-background overflow-hidden"
     >
-      {/* Image */}
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="relative overflow-hidden aspect-[5/4]">
         <motion.img
           src={service.image}
           alt={service.title}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover"
-          variants={{
-            hover: { scale: 1.08 },
-          }}
-          transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-foreground/75 via-foreground/20 to-transparent"
-        />
-        <motion.div
-          aria-hidden
-          className="absolute inset-0 bg-foreground/20"
-          variants={{ hover: { opacity: 0 } }}
-          initial={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
+          variants={{ hover: { scale: 1.1 } }}
+          transition={{ duration: 1.4, ease: [0.4, 0, 0.2, 1] }}
         />
 
-        {/* Big numeral */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/15 to-transparent"
+        />
+
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-foreground/95 via-foreground/75 to-foreground/30 opacity-0"
+          variants={{ hover: { opacity: 1 } }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        />
+
         <span
           aria-hidden
-          className="absolute top-5 left-6 text-background/85 font-extralight tabular-nums leading-none text-[clamp(1.5rem,2.2vw,2rem)] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
+          className="absolute top-4 left-5 text-background/85 font-extralight tabular-nums leading-none text-[clamp(1.25rem,1.8vw,1.65rem)] tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)]"
         >
           {service.number}
         </span>
 
-        {/* Title */}
-        <h3 className="absolute left-6 right-12 bottom-5 text-background text-lg md:text-xl lg:text-[1.35rem] font-light leading-snug tracking-tight text-balance drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-          {service.title}
-        </h3>
-
-        {/* Arrow pill */}
         <motion.span
-          aria-hidden
-          className="absolute right-5 bottom-5 inline-flex items-center justify-center h-9 w-9 rounded-full bg-background/20 text-background backdrop-blur-md border border-background/30"
+          className="absolute top-4 right-5 text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-background/85 backdrop-blur-md bg-foreground/40 ring-1 ring-background/20 px-2 py-1"
           variants={{
             hover: {
-              backgroundColor: "rgba(255,255,255,1)",
+              backgroundColor: "rgba(255,255,255,0.95)",
               color: "rgb(13,13,13)",
             },
           }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4 }}
         >
-          <motion.svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-4 w-4"
-            variants={{ hover: { x: 2, y: -2 } }}
-            transition={{ duration: 0.3 }}
-          >
-            <path d="M7 17L17 7M9 7h8v8" />
-          </motion.svg>
+          {service.tag}
         </motion.span>
-      </div>
 
-      {/* Description */}
-      <div className="relative px-6 md:px-7 py-7 border-t border-border flex-1 bg-background">
-        {/* Animated bottom border on hover */}
+        <motion.h3
+          variants={{ hover: { opacity: 0, y: -10 } }}
+          transition={{ duration: 0.3 }}
+          className="absolute left-5 right-14 bottom-5 text-background text-[15px] md:text-base lg:text-[1.05rem] font-light leading-snug tracking-tight text-balance drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+        >
+          {service.title}
+        </motion.h3>
+
+        <motion.div
+          variants={{
+            hover: { opacity: 1, y: 0 },
+          }}
+          initial={{ opacity: 0, y: 16 }}
+          transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute inset-x-5 bottom-5 text-background"
+        >
+          <span className="text-[9px] md:text-[10px] tracking-[0.28em] uppercase text-background/65 mb-2 inline-block">
+            Servicio · {service.number}
+          </span>
+          <h3 className="text-[15px] md:text-base lg:text-[1.1rem] font-light leading-snug tracking-tight text-balance mb-2">
+            {service.title}
+          </h3>
+          <p className="text-[12px] md:text-[13px] leading-[1.55] text-background/80">
+            {service.description}
+          </p>
+          <span className="mt-3 inline-flex items-center gap-1.5 text-[9px] md:text-[10px] tracking-[0.22em] uppercase text-background border-b border-background/40 pb-1">
+            Cotizar por WhatsApp
+            <ArrowUpRight className="h-3 w-3" />
+          </span>
+        </motion.div>
+
         <motion.span
           aria-hidden
-          className="absolute left-0 bottom-0 h-[2px] bg-foreground origin-left"
-          initial={{ scaleX: 0 }}
-          variants={{ hover: { scaleX: 1 } }}
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-          style={{ width: "100%" }}
-        />
-        <p className="text-sm leading-[1.7] text-muted-foreground text-pretty max-w-md">
-          {service.description}
-        </p>
+          className="absolute right-4 bottom-4 inline-flex items-center justify-center h-9 w-9 rounded-full bg-background/15 text-background backdrop-blur-md ring-1 ring-background/30"
+          variants={{
+            hover: { opacity: 0, scale: 0.85 },
+          }}
+          initial={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ArrowUpRight className="h-4 w-4" />
+        </motion.span>
       </div>
     </motion.a>
   )
 }
 
 export function JournalSection() {
-  const { ref, isVisible } = useScrollReveal(0.05)
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { amount: 0.2, once: true })
 
   return (
-    <section id="servicios" className="px-6 py-24 md:px-12 lg:px-20 md:py-32 bg-secondary/10">
-      <div
+    <section
+      id="servicios"
+      className="px-6 py-24 md:px-12 lg:px-20 md:py-32 bg-secondary/10"
+    >
+      <motion.div
         ref={ref}
-        className={`mb-14 md:mb-20 transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
+        initial={{ opacity: 0, y: 28 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+        className="mb-14 md:mb-20"
       >
         <SectionHeader
           eyebrow="Servicios"
           title="Lo que hacemos"
           meta={`(${String(services.length).padStart(2, "0")}) Servicios principales`}
         />
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px bg-border">
         {services.map((service, index) => (
           <ServiceCard key={service.title} service={service} index={index} />
         ))}
